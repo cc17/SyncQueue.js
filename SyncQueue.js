@@ -1,5 +1,5 @@
 /**
- * SyncQueue.js 0.0.0 Copyright (c) 2012 Kenneth Powers
+ * SyncQueue.js 0.1.0 Copyright (c) 2012 Kenneth Powers
  * Released under the MIT License
  */
 (function (name, global, definition) {

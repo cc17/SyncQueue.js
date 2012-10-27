@@ -1,0 +1,19 @@
+{
+  "name": "syncqueue",
+  "description": "A simple queue written in JavaScript which runs asynchronous jobs in order as if they were synchronous.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Kenneth Powers",
+    "email": "mail@kenpowers.net"
+  },
+  "main": "SyncQueue.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "keywords": [
+    "asynchronous",
+    "queue",
+    "job"
+  ],
+  "license": "MIT"
+}
