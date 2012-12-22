@@ -4,7 +4,7 @@ var SyncQueue = require('./SyncQueue');
 var sq = null;
 
 describe('SyncQueue.js tests', function () {
-  before(function () {
+  beforeEach(function () {
     sq = new SyncQueue();
   });
   it('should execute asynchronous jobs in FIFO order and maintain proper state', function (done) {
@@ -39,6 +39,42 @@ describe('SyncQueue.js tests', function () {
         // This last job finishes the test
         done();
       });
+    });
+  });
+
+  it('should execute synchronous jobs without the need for a callback', function () {
+    var hello = 'Hello, World!';
+    var hello2 = '';
+    for (var i = 0; i < hello.length; i++) {
+      sq.push(function () {
+        hello2 += hello[i];
+      });
+    }
+    assert.equal(hello, hello2);
+  });
+
+  it('should execute a mix of synchronous and asynchronous jobs', function (done) {
+    var hello = 'Hello, World!';
+    var hello2 = '';
+    for (var i = 0; i < hello.length; i++) {
+      (function (i) {
+        if (i % 2 === 0) {
+          sq.push(function () {
+            hello2 += hello[i];
+          });
+        } else {
+          sq.push(function (next) {
+            setTimeout(function () {
+              hello2 += hello[i];
+              next();
+            }, 250);
+          });
+        }
+      })(i);
+    }
+    sq.push(function () {
+      assert.equal(hello, hello2);
+      done();
     });
   });
 });

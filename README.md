@@ -46,6 +46,8 @@ Once you have the `SyncQueue` constructor, usage is simple:
 
 The console output from the code above will be `First job.` followed by `Second job.` followed by `Third job.`. The entire sequence should take approximately 6000ms.
 
+You can also add jobs without a `done` callback. They are assumed to be synchronous and the next job in the queue will execute immediately after the job returns.
+
 ## Tests
 
 To run the tests (really just one test) install mocha with `npm install -g mocha`. From this directory run `npm test` or `mocha test` and the tests will run.

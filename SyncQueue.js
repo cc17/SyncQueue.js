@@ -1,5 +1,5 @@
 /**
- * SyncQueue.js 0.1.0 Copyright (c) 2012 Kenneth Powers
+ * SyncQueue.js 0.2.0 Copyright (c) 2012 Kenneth Powers
  * Released under the MIT License
  */
 (function (name, global, definition) {
@@ -32,9 +32,15 @@
   // Function which runs the next job in the queue
   function runNext(sq) {
     if (sq._queue.length > 0) {
-      sq._queue.shift()(function () {
+      var fun = sq._queue.shift();
+      if (fun.length > 0) {
+        fun(function () {
+          runNext(sq);
+        });
+      } else {
+        fun();
         runNext(sq);
-      });
+      }
     } else {
       sq._running = false;
     }
